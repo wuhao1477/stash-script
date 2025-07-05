@@ -49,7 +49,10 @@ async function httpRequest(context, url, action) {
                 resolve(data)
             }
           });
-    });
+    }).catch(error => {
+        log('请求异常')
+        log(error)
+    })
 }
 
 /**
