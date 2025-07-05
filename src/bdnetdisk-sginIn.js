@@ -297,9 +297,14 @@ function onDone(obj = {}){
      * 你可以调用 $done() 来打断请求，或者 $done({}) 不修改响应的任何内容。
      */
     if($done){
-        setTimeout(() => {
-            $done(obj)
-        }, 120000)
+        try {
+            setTimeout(() => {
+                $done(obj)
+            }, 120000)
+        } catch (error) {
+            log('onDone 异常')
+            log(error)
+        }
     }
 }
 onResponse($request, $response)
