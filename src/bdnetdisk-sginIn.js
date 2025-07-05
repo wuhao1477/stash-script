@@ -212,7 +212,6 @@ function extractValidCookie(headers) {
  * 检查是否需要处理（基于签到状态）
  */
 function shouldProcess(body) {
-    return true;
     if (body?.data?.today_signed !== false) {
         log(body?.data?.today_signed === true ? '用户今日已签到，无需处理' : '响应中未找到签到状态信息，跳过处理');
         return false;
