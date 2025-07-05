@@ -34,7 +34,7 @@ async function httpRequest(context, url, action) {
         log(url)
         log(context.headers)
         log(context.cookie)
-        $httpClient.get( {
+        $httpClient.get({
             url,
             headers: { ...context.headers, 'Cookie': context.cookie },
             signal: controller.signal
@@ -43,8 +43,12 @@ async function httpRequest(context, url, action) {
             log(data)
             log(response)
             if (error) {
+                log('请求异常')
+                log(error)
                 reject(error)
             } else {
+                log('请求成功')
+                log(data)
                 clearTimeout(timeoutId);
                 resolve(data)
             }
