@@ -35,6 +35,9 @@ async function httpRequest(context, url, action) {
             headers: { ...context.headers, 'Cookie': context.cookie },
             signal: controller.signal
         }, (error, response, data) => {
+            log('请求结果')
+            log(data)
+            log(response)
             if (error) {
                 reject(error)
             } else {
