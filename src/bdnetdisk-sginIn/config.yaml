@@ -1,4 +1,15 @@
+name: '� 百度网盘: 🔀 Redirect'
+desc: |-
+  百度网盘：重定向
+author: |-
+  wuhao1477[https://github.com/wuhao1477]
+category: '🪐 BaiduNetdisk'
+date: '2025-07-06 07:13:21'
+version: '0.0.1'
+
 http:
+  mitm:
+    - 'pan.baidu.com/rest/2.0/membership/level'
   # 使用 JavaScript 脚本改写 HTTP(S) 请求
   script:
     - match: https://pan.baidu.com/rest/2.0/membership/level
