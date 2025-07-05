@@ -2,7 +2,7 @@ http:
   # 使用 JavaScript 脚本改写 HTTP(S) 请求
   script:
     - match: https://pan.baidu.com/rest/2.0/membership/level
-      name: test-baidu # 引用 script-providers 中的脚本
+      name: bdnetdisk-sginIn # 引用 script-providers 中的脚本
       type: response # 脚本类型：request / response
       require-body: true # 如果需要 request / response body，请设置为 true
       timeout: 10 # 脚本超时时间（秒，可选）
@@ -12,5 +12,5 @@ http:
       max-size: 1048576 # 1MB
 
 script-providers:
-  test-baidu:
+  bdnetdisk-sginIn:
     url: https://raw.githubusercontent.com/wuhao1477/stash-script/refs/heads/main/src/bdnetdisk-sginIn/bdnetdisk-sginIn.js
