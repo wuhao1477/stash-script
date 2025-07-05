@@ -290,6 +290,7 @@ async function onResponse(request, response) {
  * @returns 
  */
 function onDone(obj = {}){
+    console.log('onDone程序结束')
     /**
      * status：修改响应的状态码
      * headers：修改响应的 headers
