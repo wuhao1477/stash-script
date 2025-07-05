@@ -28,31 +28,17 @@ function sleep(ms) {
  */
 async function httpRequest(context, url, action) {
     return new Promise((resolve, reject) => {
-        log('请求开始')
-        log(url)
-        log(context.headers)
-        log(context.cookie)
         $httpClient.get({
             url,
             headers: { ...context.headers, 'Cookie': context.cookie },
             timeout: 10000,
         }, (error, response, data) => {
-            log('请求结果')
-            log(JSON.stringify(data))
-            log(response)
             if (error) {
-                log('请求异常')
-                log(error)
                 reject(error)
             } else {
-                log('请求成功')
-                log(data)
                 resolve(data)
             }
           });
-    }).catch(error => {
-        log('请求异常')
-        log(error)
     })
 }
 
@@ -76,7 +62,6 @@ function extractData(text, patterns) {
 async function signin(context) {
     const url = "https://pan.baidu.com/rest/2.0/membership/level?app_id=250528&web=5&method=signin";
     const data = await httpRequest(context, url, "签到");
-    log(data)
     if (data) {
         const { points, error_msg } = extractData(data, {
             points: /points":(\d+)/,
@@ -196,7 +181,7 @@ async function main(cookie) {
         await signin(context);
 
         // 等待3秒
-        log('等待3秒');
+        log('=== 等待3秒 ===');
         await sleep(3000);
 
         const [answer, askId] = await getDailyQuestion(context);
@@ -287,7 +272,7 @@ async function onResponse(request, response) {
  * @returns 
  */
 function onDone(obj = {}){
-    console.log('onDone程序结束')
+    console.log('onDone程序结束!')
     /**
      * status：修改响应的状态码
      * headers：修改响应的 headers
@@ -295,14 +280,7 @@ function onDone(obj = {}){
      * 你可以调用 $done() 来打断请求，或者 $done({}) 不修改响应的任何内容。
      */
     if($done){
-        try {
-            setTimeout(() => {
-                $done(obj)
-            }, 120000)
-        } catch (error) {
-            log('onDone 异常')
-            log(error)
-        }
+        $done(obj)
     }
 }
 onResponse($request, $response)
