@@ -65,7 +65,7 @@ function extractData(text, patterns) {
 async function signin(context) {
     const url = "https://pan.baidu.com/rest/2.0/membership/level?app_id=250528&web=5&method=signin";
     const data = await httpRequest(context, url, "签到");
-
+    log(data)
     if (data) {
         const { points, error_msg } = extractData(data, {
             points: /points":(\d+)/,
@@ -81,6 +81,8 @@ async function signin(context) {
         if (error_msg) {
             log(`签到错误信息: ${error_msg}`);
         }
+    } else {
+        log("签到失败")
     }
 }
 
