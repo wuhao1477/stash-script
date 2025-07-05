@@ -39,7 +39,8 @@ async function httpRequest(context, url, action) {
 
         clearTimeout(timeoutId);
 
-        if (!resp.ok) {
+        log(resp)
+        if (!resp?.ok) {
             log(`${action}失败, 状态码: ${resp.status}`);
             return null;
         }
@@ -187,6 +188,9 @@ async function main(cookie) {
         log('=== 开始执行百度网盘自动签到 ===');
 
         await signin(context);
+
+        // 等待3秒
+        log('等待3秒');
         await sleep(3000);
 
         const [answer, askId] = await getDailyQuestion(context);
@@ -254,7 +258,7 @@ async function onResponse(request, response) {
         log(`使用的 Cookie: ${cookie.substring(0, 50)}...`);
 
         // 异步执行签到，避免阻塞响应
-        main(cookie)
+        main(cookie);
 
         response.body = JSON.stringify(body);
     } catch (error) {
