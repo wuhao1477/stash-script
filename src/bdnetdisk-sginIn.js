@@ -27,8 +27,6 @@ function sleep(ms) {
  * 统一的 HTTP 请求函数
  */
 async function httpRequest(context, url, action) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
     return new Promise((resolve, reject) => {
         log('请求开始')
         log(url)
@@ -37,10 +35,10 @@ async function httpRequest(context, url, action) {
         $httpClient.get({
             url,
             headers: { ...context.headers, 'Cookie': context.cookie },
-            signal: controller.signal
+            timeout: 10000,
         }, (error, response, data) => {
             log('请求结果')
-            log(data)
+            log(JSON.stringify(data))
             log(response)
             if (error) {
                 log('请求异常')
@@ -49,7 +47,6 @@ async function httpRequest(context, url, action) {
             } else {
                 log('请求成功')
                 log(data)
-                clearTimeout(timeoutId);
                 resolve(data)
             }
           });
