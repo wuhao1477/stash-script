@@ -30,6 +30,10 @@ async function httpRequest(context, url, action) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     return new Promise((resolve, reject) => {
+        log('请求开始')
+        log(url)
+        log(context.headers)
+        log(context.cookie)
         $httpClient.get( {
             url,
             headers: { ...context.headers, 'Cookie': context.cookie },
