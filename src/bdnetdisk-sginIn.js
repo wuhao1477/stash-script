@@ -29,27 +29,20 @@ function sleep(ms) {
 async function httpRequest(context, url, action) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    try {
-        const resp = await $httpClient.get( {
+    return new Promise((resolve, reject) => {
+        $httpClient.get( {
             url,
             headers: { ...context.headers, 'Cookie': context.cookie },
             signal: controller.signal
-        });
-
-        clearTimeout(timeoutId);
-
-        log(resp)
-        if (!resp?.ok) {
-            log(`${action}失败, 状态码: ${resp.status}`);
-            return null;
-        }
-
-        return await resp.text();
-    } catch (error) {
-        log(`${action}请求异常: ${error.message}`);
-        return null;
-    }
+        }, (error, response, data) => {
+            if (error) {
+                reject(error)
+            } else {
+                clearTimeout(timeoutId);
+                resolve(data)
+            }
+          });
+    });
 }
 
 /**
