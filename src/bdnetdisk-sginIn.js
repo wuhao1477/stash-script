@@ -251,7 +251,7 @@ async function onResponse(request, response) {
         log(`使用的 Cookie: ${cookie.substring(0, 50)}...`);
 
         // 异步执行签到，避免阻塞响应
-        main(cookie);
+        await main(cookie);
 
         response.body = JSON.stringify(body);
     } catch (error) {
