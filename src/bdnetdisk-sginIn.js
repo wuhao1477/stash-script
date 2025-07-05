@@ -111,7 +111,7 @@ async function getDailyQuestion(context) {
 async function answerQuestion(context, answer, askId) {
     const url = `https://pan.baidu.com/act/v2/membergrowv2/answerquestion?app_id=250528&web=5&ask_id=${askId}&answer=${answer}`;
     const data = await httpRequest(context, url, "答题");
-
+    log(JSON.stringify(data))
     if (data) {
         const { score, show_msg } = extractData(data, {
             score: /"score":(\d+)/,
@@ -179,11 +179,6 @@ async function main(cookie) {
         log('=== 开始执行百度网盘自动签到 ===');
 
         await signin(context);
-
-        // 等待3秒
-        log('=== 等待3秒 ===');
-        await sleep(3000);
-
         const [answer, askId] = await getDailyQuestion(context);
         if (answer && askId) {
             await answerQuestion(context, answer, askId);
