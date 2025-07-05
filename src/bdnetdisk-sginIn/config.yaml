@@ -13,4 +13,4 @@ http:
 
 script-providers:
   test-baidu:
-    url: https://raw.githubusercontent.com/wuhao1477/stash-script/refs/heads/main/src/bdnetdisk-sginIn/index.js
+    url: https://raw.githubusercontent.com/wuhao1477/stash-script/refs/heads/main/src/bdnetdisk-sginIn/bdnetdisk-sginIn.js
