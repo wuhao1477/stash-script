@@ -10,5 +10,5 @@ if($response){
 
 if($done){
     console.log("有$done方法")
-    $done($response)
+    $done({response:$response})
 }
